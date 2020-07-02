@@ -48,6 +48,15 @@ describe Config::Options do
 
     context 'and parsing ENV variable values' do
       context 'is enabled' do
+        # will fail, but it's a start
+        it 'should recognize an array of values' do
+          ENV['Settings.params.0'] = 'first'
+          ENV['Settings.params.1'] = 'first'
+
+          expect(config.params).to eq(['first', 'second'])
+          expect(config.params.is_a? Array).to eq(true)
+        end
+
         it 'should recognize "false" and expose as Boolean' do
           ENV['Settings.new_var'] = 'false'
 
